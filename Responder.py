@@ -13,6 +13,14 @@ class defaultResponder(_Responder):
         return "君は{}が得意なフレンズなんだね!!".format(text)
 
 class randomResponder(_Responder):
-    responses=["わーい！","たーのしー！","すごいね、魔法みたい！"]
+    def __init__(self,name):
+        super().__init__(name)
+        self._responses=[]
+        with open("random.txt") as f:
+            for line in f:
+                if line:
+                    line=line.strip()
+                    self._responses.append(line)
     def response(self,_):
-        return random.choice(randomResponder.responses)
+        #入力は(受け取るけど)利用しない
+        return random.choice(self._responses)
